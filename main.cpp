@@ -1,7 +1,42 @@
 #include <iostream>
+#include <filesystem>
 
-int main()
+#include <gflags/gflags.h>
+#include <glog/logging.h>
+
+namespace fs = std::filesystem;
+
+
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello, World!" << std::endl;
+    gflags::SetVersionString(VERSION);
+    gflags::SetUsageMessage(std::string(argv[0]) + " [OPTION]");
+    gflags::ParseCommandLineFlags(&argc, &argv, false);
+    google::InitGoogleLogging(argv[0]);
+
+
+    for(int i = 0; i < argc; ++i)
+    {
+        LOG(INFO) << '[' << i << ']' << ':' << ' ' << '[' << argv[i] << ']';
+    }
+
+    LOG(INFO) << "Command Line Flags:\n" << gflags::CommandlineFlagsIntoString();
+
+
+#define OUTPUT(severity) LOG(severity) << #severity
+#define DOUTPUT(severity) DLOG(severity) << "DEBUG " #severity
+#define VOUTPUT(verbose) VLOG(verbose) << "VERBOSE " #verbose
+
+    VOUTPUT(1);
+    VOUTPUT(2);
+    DOUTPUT(INFO);
+    OUTPUT(INFO);
+    DOUTPUT(WARNING);
+    OUTPUT(WARNING);
+    DOUTPUT(ERROR);
+    OUTPUT(ERROR);
+    DOUTPUT(FATAL);
+    OUTPUT(FATAL);
+
     return 0;
 }

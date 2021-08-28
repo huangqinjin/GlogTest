@@ -13,7 +13,6 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-${presetName}",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_CXX_STANDARD": "17",
         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
       }
