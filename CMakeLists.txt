@@ -9,4 +9,11 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 
+if(ANDROID)
+    set(INSTALL_PATH ${CMAKE_CURRENT_LIST_DIR}/libs/android)
+    list(PREPEND CMAKE_FIND_ROOT_PATH ${INSTALL_PATH}/${ANDROID_ABI}-root)
+    add_subdirectory(android)
+endif()
+
+
 add_subdirectory(startup)

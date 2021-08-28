@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    signingConfigs {
+        config {
+            storeFile file("$rootDir/key0-123456.jks")
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+    }
+
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.github.huangqinjin.glogtest"
+        minSdk 24
+        targetSdk 31
+        versionCode 0x01_00_00_00  // 1.0.0.0  max value 0x7d2b7500 = 125.43.117.0  https://developer.android.com/studio/publish/versioning
+        versionName "${(versionCode & 0xff000000) >> 24}.${(versionCode & 0x00ff0000) >> 16}.${(versionCode & 0x0000ff00) >> 8}.${versionCode & 0x000000ff}"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                targets "native-lib"
+                arguments "-DBUILD_ANDROID_APP=$project.name"
+                arguments "-DCMAKE_CXX_STANDARD=17"
+                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs += [
+                '../../libs/android'
+            ]
+        }
+    }
+    packagingOptions {
+        jniLibs {
+            pickFirsts += '**/*.so'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('../../CMakeLists.txt')
+            version '3.16.0+'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

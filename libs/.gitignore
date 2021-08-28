@@ -1,0 +1,8 @@
+*
+!/.gitignore
+!/patches/
+!/patches/*
+!/*.sh
+!/*.py
+!/*.bat
+!/*.ps1
