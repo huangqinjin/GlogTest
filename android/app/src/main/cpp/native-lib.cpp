@@ -2,6 +2,18 @@
 #include <android/log.h>
 #include <string>
 
+
+extern "C" JNIEXPORT jint JNICALL
+jmain(JNIEnv* env, jobject thiz, jobjectArray args);
+
+extern "C" JNIEXPORT jint JNICALL
+Java_com_github_huangqinjin_glogtest_MainActivity_main(
+        JNIEnv* env, jobject thiz, jobjectArray args)
+{
+    return jmain(env, thiz, args);
+}
+
+
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_github_huangqinjin_glogtest_MainActivity_stringFromJNI(
         JNIEnv* env,
