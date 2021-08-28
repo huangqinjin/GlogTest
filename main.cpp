@@ -15,6 +15,12 @@ int main(int argc, char* argv[])
     google::InitGoogleLogging(argv[0]);
 
 
+    // Only create log file for INFO as it contains all severity levels.
+    google::SetLogDestination(google::WARNING, "");
+    google::SetLogDestination(google::ERROR, "");
+    google::SetLogDestination(google::FATAL, "");
+
+
     for(int i = 0; i < argc; ++i)
     {
         LOG(INFO) << '[' << i << ']' << ':' << ' ' << '[' << argv[i] << ']';
