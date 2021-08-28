@@ -7,8 +7,22 @@
 namespace fs = std::filesystem;
 
 
+template<int Permissions>
+static bool CheckFilePermissions(const char* name, const std::string& value)
+{
+    if (!value.empty() && access(value.c_str(), Permissions | F_OK))
+    {
+        perror(value.c_str());
+        return false;
+    }
+    return true;
+}
+
 int main(int argc, char* argv[])
 {
+    gflags::RegisterFlagValidator(&FLAGS_log_dir, CheckFilePermissions<W_OK>);
+
+
     gflags::SetVersionString(VERSION);
     gflags::SetUsageMessage(std::string(argv[0]) + " [OPTION]");
     gflags::ParseCommandLineFlags(&argc, &argv, false);
