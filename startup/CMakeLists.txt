@@ -38,6 +38,9 @@ foreach(var IN ITEMS
     message(VERBOSE "${var}=[${${var}}]")
 endforeach()
 
+if(ANDROID)
+    set(JNI_INCLUDE_DIRS ${JAVA_INCLUDE_PATH})
+endif()
 
 if(JNI_INCLUDE_DIRS)
     add_library(${PROJECT_NAME} STATIC jni.cpp)
