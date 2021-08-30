@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         String app = getApplicationInfo().loadLabel(getPackageManager()).toString();
+        String lib = getApplicationInfo().nativeLibraryDir; // android:extractNativeLibs
         File files = getExternalFilesDir(null);
         File cache = getExternalCacheDir(); // cache will be created on-demand automatically
 
         Log.i(TAG, "app: " + app);
+        Log.i(TAG, "lib: " + lib);
         Log.i(TAG, "files: " + files);
         Log.i(TAG, "cache: " + cache);
 
