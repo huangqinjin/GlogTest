@@ -1,7 +1,9 @@
 *
 !/.gitignore
+!/CMakeLists.txt
 !/patches/
 !/patches/*
+!/*.cmake
 !/*.sh
 !/*.py
 !/*.bat

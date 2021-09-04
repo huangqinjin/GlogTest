@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 657a1f4..a4c4c5e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -583,10 +583,10 @@ export (
+   NAMESPACE ${PACKAGE_NAME}::
+   FILE "${PROJECT_BINARY_DIR}/${EXPORT_NAME}.cmake"
+ )
+-export (
+-  TARGETS ${TARGETS}
+-  FILE "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-nonamespace-targets.cmake"
+-)
++#export (
++#  TARGETS ${TARGETS}
++#  FILE "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-nonamespace-targets.cmake"
++#)
+ if (REGISTER_BUILD_DIR)
+   export (PACKAGE ${PACKAGE_NAME})
+ endif ()
