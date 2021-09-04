@@ -13,7 +13,7 @@ FetchContent_Declare(gflags
 )
 FetchContent_Declare(glog
     GIT_REPOSITORY https://github.com/google/glog.git
-    GIT_TAG        v0.5.0
+    GIT_TAG        396558472185d1796604e42a3ba458e29a60f25b
     PATCH_COMMAND ${PATCH} glog
     OVERRIDE_FIND_PACKAGE
 )
