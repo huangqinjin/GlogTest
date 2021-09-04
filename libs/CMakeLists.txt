@@ -33,5 +33,19 @@ set(WITH_GTEST OFF)
 set(WITH_PKGCONFIG OFF)
 
 
-FetchContent_MakeAvailable(gflags glog)
+foreach(p IN ITEMS gflags glog)
+    FetchContent_MakeAvailable(${p})
+
+    # https://gitlab.kitware.com/cmake/cmake/-/issues/21687
+    # Workarounds for find_package() before CMake 3.22 which OVERRIDE_FIND_PACKAGE is not available.
+
+    # First try: Point <PackageName>_DIR to <PackageName>_BINARY_DIR which contains <PackageName>Config.cmake.
+    # Result: Trigger CMP0024.
+    #set(${p}_DIR ${${p}_BINARY_DIR} CACHE PATH "The directory containing a CMake configuration file for ${p}.")
+
+    # Second try: Disable find_package().
+    # Result: Works only for non-REQUIRED packages.
+    set(CMAKE_DISABLE_FIND_PACKAGE_${p} ON CACHE BOOL "Disable find_package(${p}).")
+    set(${p}_FOUND ON CACHE BOOL "Already available by FetchContent.")
+endforeach()
 

@@ -10,13 +10,16 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_PROJECT_NAME}::Main)
 project(${CMAKE_PROJECT_NAME}Main)
 
 set(GFLAGS_USE_TARGET_NAMESPACE ON)
-find_package(gflags 2.2.2 REQUIRED)
+if (NOT TARGET gflags::gflags)
+    find_package(gflags 2.2.2 REQUIRED)
+endif()
 
 if (NOT TARGET gflags) # https://github.com/google/glog/issues/683
     add_library(gflags ALIAS gflags::gflags)
 endif()
-find_package(glog 0.5 REQUIRED)
-
+if (NOT TARGET glog::glog)
+    find_package(glog 0.5 REQUIRED)
+endif()
 
 add_library(${PROJECT_NAME} OBJECT main.cpp redirect.c)
 add_library(${CMAKE_PROJECT_NAME}::Main ALIAS ${PROJECT_NAME})
