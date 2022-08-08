@@ -15,7 +15,7 @@ find_package(gflags 2.2.2 REQUIRED)
 if (NOT TARGET gflags) # https://github.com/google/glog/issues/683
     add_library(gflags ALIAS gflags::gflags)
 endif()
-find_package(glog 0.5 REQUIRED)
+find_package(glog 0.6 REQUIRED)
 
 
 add_library(${PROJECT_NAME} OBJECT main.cpp redirect.c)
