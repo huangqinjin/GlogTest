@@ -11,10 +11,6 @@ project(${CMAKE_PROJECT_NAME}Main)
 
 set(GFLAGS_USE_TARGET_NAMESPACE ON)
 find_package(gflags 2.2.2 REQUIRED)
-
-if (NOT TARGET gflags) # https://github.com/google/glog/issues/683
-    add_library(gflags ALIAS gflags::gflags)
-endif()
 find_package(glog 0.6 REQUIRED)
 
 
