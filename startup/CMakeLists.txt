@@ -17,8 +17,7 @@ find_package(glog 0.6 REQUIRED)
 add_library(${PROJECT_NAME} OBJECT main.cpp redirect.c)
 add_library(${CMAKE_PROJECT_NAME}::Main ALIAS ${PROJECT_NAME})
 set_property(SOURCE main.cpp PROPERTY COMPILE_DEFINITIONS VERSION=\"${CMAKE_PROJECT_VERSION}\")
-target_link_libraries(${PROJECT_NAME} PRIVATE gflags::gflags glog::glog)
-
+target_link_libraries(${PROJECT_NAME} PRIVATE gflags::gflags glog::glog $<$<BOOL:${ANDROID}>:log>)
 
 
 
