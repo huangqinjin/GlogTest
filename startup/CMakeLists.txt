@@ -24,6 +24,14 @@ target_link_libraries(${PROJECT_NAME} PRIVATE gflags::gflags glog::glog)
 
 project(${CMAKE_PROJECT_NAME}JNI)
 
+if(NOT CMAKE_ANDROID_API)
+    if(ANDROID_NATIVE_API_LEVEL)
+        set(CMAKE_ANDROID_API ${ANDROID_NATIVE_API_LEVEL})
+    elseif(CMAKE_SYSTEM_VERSION)
+        set(CMAKE_ANDROID_API ${CMAKE_SYSTEM_VERSION})
+    endif()
+endif()
+
 find_package(JNI)
 
 if(JNI_FOUND)
