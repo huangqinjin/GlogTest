@@ -4,6 +4,19 @@ cmake_minimum_required(VERSION 3.24)
 add_executable(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_PROJECT_NAME}::Main)
 
+if(ANDROID)
+    set(files [[]])
+    find_library(lib NAMES ${CMAKE_ANDROID_STL_TYPE} ${ANDROID_STL})
+    if (lib AND lib MATCHES [[.*\.so$]])
+        list(APPEND files ${lib})
+    endif()
+
+    if(files)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND_EXPAND_LISTS COMMAND
+            ${CMAKE_COMMAND} -E copy_if_different ${files} $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        )
+    endif()
+endif()
 
 
 
