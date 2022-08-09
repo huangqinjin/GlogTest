@@ -22,4 +22,6 @@ endif()
 
 
 add_subdirectory(libs)
+
+enable_testing()
 add_subdirectory(startup)

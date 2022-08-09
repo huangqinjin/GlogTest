@@ -18,6 +18,25 @@ if(ANDROID)
     endif()
 endif()
 
+add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME}
+    WORKING_DIRECTORY $<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
+
+
+if(ANDROID AND CMAKE_CROSSCOMPILING_EMULATOR)
+    file(DOWNLOAD
+        https://www.nuget.org/api/v2/package/android-exe-launcher/33.6.0
+        ${CMAKE_BINARY_DIR}/android-exe-launcher.nupkg
+        EXPECTED_HASH SHA512=8c10a17bbdaf0d312b8925761d07cf28000c8009a3db589a2c211b61ec1ff26605da25bdfb94a8f4198f474fdf4e3fc931a1682fb288e389a960f214596cb7a6
+    )
+
+    file(ARCHIVE_EXTRACT
+        INPUT ${CMAKE_BINARY_DIR}/android-exe-launcher.nupkg
+        DESTINATION ${CMAKE_BINARY_DIR}/android-exe-launcher
+    )
+endif()
+
+
 
 
 project(${CMAKE_PROJECT_NAME}Main)

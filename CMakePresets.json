@@ -23,11 +23,11 @@
       "displayName": "Android",
       "description": "Default config using Android NDK",
       "cacheVariables": {
+        "CMAKE_CROSSCOMPILING_EMULATOR": "qemu-aarch64;-L;${sourceDir}/cmake-build-${presetName}/android-exe-launcher;-E;LD_LIBRARY_PATH=.",
         "CMAKE_TOOLCHAIN_FILE": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
         "ANDROID_STL": "c++_shared",
         "ANDROID_NATIVE_API_LEVEL": "26",
-        "ANDROID_ABI": "arm64-v8a",
-        "ANDROID_LINKER_FLAGS": "-fuse-ld=gold"
+        "ANDROID_ABI": "arm64-v8a"
       }
     }
   ],
@@ -39,6 +39,22 @@
     },
     {
       "name": "android",
+      "displayName": "Android Build for Android",
+      "configurePreset": "android"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "displayName": "Default Build",
+      "configurePreset": "default",
+      "output": {
+        "verbosity": "extra"
+      }
+    },
+    {
+      "name": "android",
+      "inherits": "default",
       "displayName": "Android Build for Android",
       "configurePreset": "android"
     }
